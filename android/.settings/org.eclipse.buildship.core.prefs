@@ -1,2 +1,13 @@
+arguments=--init-script /var/folders/kg/w2flbg4x6b53r3s8gjh_0rkc0000gn/T/init2225148868508306821.gradle --init-script /var/folders/kg/w2flbg4x6b53r3s8gjh_0rkc0000gn/T/init6407837885807057526.gradle
+auto.sync=false
+build.scans.enabled=false
+connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
 connection.project.dir=
 eclipse.preferences.version=1
+gradle.user.home=
+java.home=/Users/clementvandendaelen/Library/Java/JavaVirtualMachines/corretto-17.0.4.1/Contents/Home
+jvm.arguments=
+offline.mode=false
+override.workspace.settings=true
+show.console.view=true
+show.executions.view=true
