@@ -1,5 +1,5 @@
 {
-  "name": "react-native-rsa-native",
+  "name": "@icure/react-native-rsa-native",
   "version": "2.1.2",
   "description": "A native implementation of RSA key generation and encryption/decryption.",
   "main": "index.js",
