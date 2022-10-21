@@ -1,4 +1,4 @@
-declare module '@icure/react-native-rsa-native' {
+declare module 'react-native-rsa-native' {
 	interface PublicKey {
 		public: string;
 	}
