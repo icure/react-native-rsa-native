@@ -53,8 +53,8 @@ class RSAECFormatter: NSObject {
         return String(format: "-----END %@ KEY-----", tag)
     }
     
-    static public func stripHeaders(pemString: String) -> String? {
-        var str: String? = nil
+    static public func stripHeaders(pemString: String) -> String {
+        var str: String = pemString
         if(pemString.contains(RSAECFormatter.headerForTag(tag: RSAECFormatter.privateRsaTag))){
             str = pemString.replacingOccurrences(of: RSAECFormatter.headerForTag(tag: RSAECFormatter.privateRsaTag), with: "")
             str = str!.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.privateRsaTag), with: "")
