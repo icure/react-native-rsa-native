@@ -57,16 +57,16 @@ class RSAECFormatter: NSObject {
         var str: String = pemString
         if(pemString.contains(RSAECFormatter.headerForTag(tag: RSAECFormatter.privateRsaTag))){
             str = pemString.replacingOccurrences(of: RSAECFormatter.headerForTag(tag: RSAECFormatter.privateRsaTag), with: "")
-            str = str!.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.privateRsaTag), with: "")
+            str = str.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.privateRsaTag), with: "")
         }else if(pemString.contains(RSAECFormatter.headerForTag(tag: RSAECFormatter.privateTag))){
             str = pemString.replacingOccurrences(of: RSAECFormatter.headerForTag(tag: RSAECFormatter.privateTag), with: "")
-            str = str!.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.privateTag), with: "")
+            str = str.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.privateTag), with: "")
         }else if(pemString.contains(RSAECFormatter.headerForTag(tag: RSAECFormatter.publicRsaTag))){
             str = pemString.replacingOccurrences(of: RSAECFormatter.headerForTag(tag: RSAECFormatter.publicRsaTag), with: "")
-            str = str!.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.publicRsaTag), with: "")
+            str = str.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.publicRsaTag), with: "")
         }else if(pemString.contains(RSAECFormatter.headerForTag(tag: RSAECFormatter.publicTag))){
             str = pemString.replacingOccurrences(of: RSAECFormatter.headerForTag(tag: RSAECFormatter.publicTag), with: "")
-            str = str!.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.publicTag), with: "")
+            str = str.replacingOccurrences(of: RSAECFormatter.footerForTag(tag: RSAECFormatter.publicTag), with: "")
         }
         return str
     }

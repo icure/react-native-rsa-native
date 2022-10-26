@@ -282,7 +282,7 @@ class RSAECNative: NSObject {
     
     
     public func setPublicKey(publicKey: String) -> Bool? {
-        guard let publicKeyStr = RSAECFormatter.stripHeaders(pemString: publicKey) else { return false }
+        let publicKeyStr = RSAECFormatter.stripHeaders(pemString: publicKey)
         let query: [String: AnyObject] = [
             String(kSecAttrKeyType): kSecAttrKeyTypeRSA,
             String(kSecAttrKeyClass): kSecAttrKeyClassPublic,
@@ -302,7 +302,7 @@ class RSAECNative: NSObject {
     }
     
     public func setPrivateKey(privateKey: String) -> Bool? {
-        guard let privateKeyStr = RSAECFormatter.stripHeaders(pemString: privateKey) else { return nil }
+        let privateKeyStr = RSAECFormatter.stripHeaders(pemString: privateKey)
         let query: [String: AnyObject] = [
             String(kSecAttrKeyType): kSecAttrKeyTypeRSA,
             String(kSecAttrKeyClass): kSecAttrKeyClassPrivate,
