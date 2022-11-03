@@ -129,7 +129,7 @@ public class RSA {
     // This function will be called by encrypt and encrypt64
     private byte[] encrypt(byte[] data) throws NoSuchAlgorithmException, InvalidKeySpecException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, InvalidKeyException {
         String encodedMessage = null;
-        final Cipher cipher = Cipher.getInstance("RSA/NONE/PKCS1Padding");
+        final Cipher cipher = Cipher.getInstance("RSA/NONE/OAEPWithSHA-1AndMGF1Padding");
         cipher.init(Cipher.ENCRYPT_MODE, this.publicKey);
         byte[] cipherBytes = cipher.doFinal(data);
         return cipherBytes;
@@ -139,19 +139,19 @@ public class RSA {
     public String encrypt64(String b64Message) throws NoSuchAlgorithmException, InvalidKeySpecException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, InvalidKeyException {
         byte[] data = Base64.decode(b64Message, Base64.DEFAULT);
         byte[] cipherBytes = encrypt(data);
-        return Base64.encodeToString(cipherBytes, Base64.DEFAULT);
+        return Base64.encodeToString(cipherBytes, Base64.NO_WRAP);
     }
 
     // UTF-8 input
     public String encrypt(String message) throws NoSuchAlgorithmException, InvalidKeySpecException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, InvalidKeyException {
         byte[] data = message.getBytes(CharsetUTF_8);
         byte[] cipherBytes = encrypt(data);
-        return Base64.encodeToString(cipherBytes, Base64.DEFAULT);
+        return Base64.encodeToString(cipherBytes, Base64.NO_WRAP);
     }
 
     private byte[] decrypt(byte[] cipherBytes) throws NoSuchAlgorithmException, InvalidKeySpecException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, InvalidKeyException {
         String message = null;
-        final Cipher cipher = Cipher.getInstance("RSA/NONE/PKCS1Padding");
+        final Cipher cipher = Cipher.getInstance("RSA/NONE/OAEPWithSHA-1AndMGF1Padding");
         cipher.init(Cipher.DECRYPT_MODE, this.privateKey);
         byte[] data = cipher.doFinal(cipherBytes);
         return data;
@@ -168,7 +168,7 @@ public class RSA {
     public String decrypt64(String b64message) throws NoSuchAlgorithmException, InvalidKeySpecException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, InvalidKeyException {
         byte[] cipherBytes = Base64.decode(b64message, Base64.DEFAULT);
         byte[] data = decrypt(cipherBytes);
-        return Base64.encodeToString(data, Base64.DEFAULT);
+        return Base64.encodeToString(data, Base64.NO_WRAP);
     }
 
     private String sign(byte[] messageBytes, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, InvalidKeyException, SignatureException {
@@ -235,18 +235,19 @@ public class RSA {
     }
 
     private PublicKey pkcs1ToPublicKey(String publicKey) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        Reader keyReader = null;
-        try {
-            keyReader = new StringReader(publicKey);
-            PEMParser pemParser = new PEMParser(keyReader);
-            SubjectPublicKeyInfo subjectPublicKeyInfo = (SubjectPublicKeyInfo) pemParser.readObject();
-            X509EncodedKeySpec spec = new X509EncodedKeySpec(subjectPublicKeyInfo.getEncoded());
+//         Reader keyReader = null;
+//         try {
+//             keyReader = new StringReader(publicKey);
+//             PEMParser pemParser = new PEMParser(keyReader);
+//             SubjectPublicKeyInfo subjectPublicKeyInfo = (SubjectPublicKeyInfo) pemParser.readObject();
+//             X509EncodedKeySpec spec = new X509EncodedKeySpec(subjectPublicKeyInfo.getEncoded());
+            X509EncodedKeySpec spec = new X509EncodedKeySpec(Base64.decode(publicKey, Base64.DEFAULT));
             return KeyFactory.getInstance("RSA").generatePublic(spec);
-               } finally {
-            if (keyReader != null) {
-                keyReader.close();
-            }
-        }
+//        } finally {
+//             if (keyReader != null) {
+//                 keyReader.close();
+//             }
+//         }
     }
 
     private PrivateKey pkcs1ToPrivateKey(byte[] pkcs1PrivateKey) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
